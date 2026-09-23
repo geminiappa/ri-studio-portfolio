@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Сайт и портфолио команды разработчиков игр RI Studio." />
+  <title>RI Studio — Разработка игр</title>
+  <link rel="icon" href="Gemini_Generated_Image_hmvg8ohmvg8ohmvg.jpeg" type="image/jpeg" />
+  
+  <style>
+    :root{--bg:#f1f1f1;--surface:#ffffff;--surface-2:#f7f7f7;--line:#d8d8d8;--text:#171717;--muted:#767676;--dark:#222222;--radius:22px;--shadow:0 10px 30px rgba(0,0,0,.05);}
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--text);background:linear-gradient(rgba(0,0,0,.028) 1px, transparent 1px),linear-gradient(90deg, rgba(0,0,0,.028) 1px, transparent 1px),var(--bg);background-size:32px 32px;overflow-x:hidden;}
+    a{text-decoration:none;color:inherit} button,input{font:inherit}
+    .wrap{width:min(1180px,calc(100% - 32px));margin:0 auto}
+    header{position:sticky;top:0;z-index:10;backdrop-filter:blur(16px);background:rgba(241,241,241,.87);border-bottom:1px solid rgba(0,0,0,.07);}
+    .nav{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px;}
+    .menu-btn{background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.02em;font-size:16px;color:var(--text);transition:opacity 0.2s;}
+    .menu-btn:hover{opacity:0.8;}
+    .brand-avatar{width:42px;height:42px;border-radius:12px;object-fit:cover;border:1px solid var(--line);box-shadow:var(--shadow);}
+    .menu-arrow{color:var(--muted);font-size:10px;margin-left:4px;transition:transform 0.2s ease;}
+    .menu-btn:hover .menu-arrow{transform:translateY(2px);}
+    .sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);z-index:99;opacity:0;pointer-events:none;transition:opacity 0.3s ease;}
+    .sidebar-overlay.open{opacity:1;pointer-events:auto;}
+    .sidebar{position:fixed;top:0;left:-320px;width:300px;height:100vh;background:var(--surface);box-shadow:var(--shadow);z-index:100;transition:left 0.3s ease;padding:30px 24px;display:flex;flex-direction:column;gap:30px;border-right:1px solid var(--line);}
+    .sidebar.open{left:0;}
+    .sidebar-header{display:flex;justify-content:space-between;align-items:center;}
+    .sidebar-close{background:var(--surface-2);border:1px solid var(--line);width:36px;height:36px;border-radius:50%;font-size:16px;cursor:pointer;display:grid;place-items:center;transition:background 0.2s;}
+    .sidebar-close:hover{background:#e2e2e2;}
+    .sidebar-nav{display:flex;flex-direction:column;gap:16px;font-size:18px;font-weight:600;}
+    .sidebar-nav a{padding:10px 14px;border-radius:12px;transition:background 0.2s;}
+    .sidebar-nav a:hover, .sidebar-nav a.active{background:var(--surface-2);}
+    .nav-right{display:flex;align-items:center;gap:10px}
+    .pill{border:1px solid var(--line);background:var(--surface);padding:9px 13px;border-radius:999px;color:#555;font-size:13px;font-weight:650;}
+    .hero{padding:70px 0 36px}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:rgba(255,255,255,.7);font-size:12px;font-weight:750;text-transform:uppercase;letter-spacing:.08em;}
+    .eyebrow span{width:7px;height:7px;border-radius:50%;background:#4f4f4f;display:inline-block}
+    h1{font-size:clamp(42px,7vw,80px);line-height:.95;letter-spacing:-.055em;margin:18px 0 16px;max-width:900px;}
+    .lead{font-size:18px;line-height:1.6;color:var(--muted);max-width:720px;margin:0}
+    .toolbar{margin:20px 0 34px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+    .search{width:min(420px,100%);display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-radius:14px;}
+    .search input{border:0;outline:0;background:transparent;width:100%;color:var(--text)}
+    .count{color:var(--muted);font-size:14px}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;padding-bottom:70px;}
+    
+    /* Стили карточек с правильными размерами */
+    .game-card{min-height:390px;border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;}
+    .game-card.featured { grid-column: span 8; }
+    .game-card.standard { grid-column: span 4; }
+    
+    .game-card:hover{transform:translateY(-4px);box-shadow:0 16px 44px rgba(0,0,0,.09);border-color:#c6c6c6}
+    
+    /* Анимация картинок: изначально тусклые (dim) и черно-белые */
+    .game-media {
+      position: relative;
+      height: 235px;
+      background: var(--dark); /* Темный фон для усиления эффекта "тусклости" */
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+    .media-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      position: absolute;
+      inset: 0;
+      transition: opacity 0.5s ease, filter 0.5s ease, transform 0.5s ease;
+      filter: grayscale(100%) brightness(0.55); /* Тускло и без цвета */
+    }
+    /* При наведении: яркие, цветные и немного больше */
+    .game-card:hover .media-img {
+      filter: grayscale(0%) brightness(1); 
+      transform: scale(1.03);
+    }
+    .main-img { opacity: 1; z-index: 1; }
+    .hover-img { opacity: 0; z-index: 2; }
+    .game-card:hover .main-img.has-hover { opacity: 0; }
+    .game-card:hover .hover-img { opacity: 1; }
+    
+    .game-badge-abs {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 3;
+      background: rgba(255,255,255,.9);
+      border: 1px solid rgba(0,0,0,.08);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      backdrop-filter: blur(8px);
+    }
+    
+    .card-title {
+      font-size: clamp(28px, 4vw, 36px);
+      letter-spacing: -.04em;
+      line-height: 1.1;
+      margin: 0;
+    }
+    .game-card.standard .card-title {
+      font-size: clamp(22px, 3vw, 26px);
+    }
+
+    .meta-row{display:flex;gap:8px;flex-wrap:wrap}
+    .tag{padding:7px 10px;border:1px solid var(--line);background:var(--surface-2);border-radius:999px;font-size:12px;color:#5d5d5d}
+    .card-body{padding:20px 24px;display:flex;flex-direction:column;gap:16px;flex:1}
+    .game-desc{margin:0;color:var(--muted);font-size:15px;line-height:1.6;max-width:680px}
+    .game-card.standard .game-desc { font-size: 14px; }
+    
+    .card-footer{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:12px; flex-wrap: wrap;}
+    .status{font-size:13px;color:#4d4d4d;font-weight:700}
+    .status::before{content:"";display:inline-block;width:8px;height:8px;background:#545454;border-radius:50%;margin-right:8px}
+    .launch{background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:13px;padding:12px 16px;font-weight:800;display:inline-flex;align-items:center;gap:8px;transition:background .2s ease, transform .2s ease;box-shadow:0 2px 8px rgba(0,0,0,.02);}
+    .launch:hover{background:var(--surface-2);transform:translateY(-1px);}
+    .launch-arrow{color:var(--muted);font-weight:normal;}
+    
+    footer{border-top:1px solid var(--line);padding:32px 0 44px;color:var(--muted);font-size:13px}
+    .foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+    .social-links{display:flex;gap:16px;align-items:center;}
+    .social-link{color:var(--muted);transition:color 0.2s ease, transform 0.2s ease;display:flex;}
+    .social-link:hover{color:var(--text);transform:translateY(-2px);}
+    .social-link svg{width:22px;height:22px;fill:currentColor;}
+    .hidden{display:none!important}
+    
+    @media (max-width:900px){
+      .game-card.featured, .game-card.standard { grid-column: span 12; }
+      .hero{padding-top:48px}
+    }
+    @media (max-width:560px){
+      .wrap{width:min(100% - 20px,1180px)} .nav{min-height:68px} .pill{display:none} 
+      .game-media{height:180px} .card-body{padding:16px} 
+      .card-footer{align-items:flex-start;flex-direction:column} .launch{width:100%;justify-content:center} 
+      h1{font-size:48px} .foot{flex-direction:column-reverse;justify-content:center;text-align:center;}
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2 style="margin: 0; font-size: 20px;">Меню</h2>
+      <button class="sidebar-close" id="sidebarClose" aria-label="Закрыть меню">✕</button>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="index.html" class="active">Главная</a>
+      <a href="index.html#grid">Наши проекты</a>
+      <a href="about.html">О команде</a>
+      <a href="contact.html">Контакты</a>
+    </nav>
+  </aside>
+
+  <header>
+    <div class="wrap nav">
+      <button class="menu-btn" id="menuBtn" aria-label="Открыть меню">
+        <img src="Gemini_Generated_Image_hmvg8ohmvg8ohmvg.jpeg" alt="Аватарка RI Studio" class="brand-avatar">
+        <span>RI Studio <span class="menu-arrow">▼</span></span>
+      </button>
+      <div class="nav-right">
+        <span class="pill">Портфолио</span>
+        <span class="pill">Инди-студия</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <span class="eyebrow"><span></span> О нас и наших проектах</span>
+      <h1>Привет, мы — RI Studio.<br>Мы создаем игры.</h1>
+      <p class="lead">
+        Это наш уголок в сети. Здесь мы рассказываем о нашей команде, делимся процессом разработки и публикуем готовые проекты, над которыми трудились. Добро пожаловать!
+      </p>
+      <div class="toolbar">
+        <label class="search">
+          <span aria-hidden="true">⌕</span>
+          <input id="search" type="search" placeholder="Поиск по проектам…" autocomplete="off" />
+        </label>
+        
+      </div>
+    </section>
+
+    <section id="grid" class="grid" aria-label="Игры">
+      
+      <!-- Проект 1: Солнечная Долина (Крупный блок, 8 колонок) -->
+      <article class="game-card featured" data-title="солнечная долина ферма стратегия">
+        <div class="game-media">
+          <img src="e01aa049-36d7-4063-8caa-7560de19d6a2.png" class="media-img main-img has-hover" alt="Главное меню Солнечной Долины">
+          <img src="8d4d7703-be0e-459b-b91f-f1adc832fbeb.jpeg" class="media-img hover-img" alt="Геймплей Солнечной Долины">
+          <span class="badge game-badge-abs">ДОСТУПНА</span>
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="meta-row" style="margin-bottom:12px">
+              <span class="tag">Ферма</span>
+              <span class="tag">Стратегия</span>
+              <span class="tag">Браузер</span>
+            </div>
+            <h2 class="card-title">Солнечная Долина</h2>
+          </div>
+          <p class="game-desc">
+            Изометрическая ферма: выращивание, производство, работники и развитие хозяйства.
+            В этой игре мы реализовали системы автопроизводства, подведения итогов дня и сохранения прогресса.
+          </p>
+          <div class="card-footer">
+            <span class="status">Игра опубликована</span>
+            <a class="launch" href="https://unique-frangipane-d48be9.netlify.app/" target="_blank" rel="noopener">
+              Играть <span class="launch-arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Проект 2: Farelauncher (Блок сбоку, 4 колонки) -->
+      <article class="game-card standard" data-title="farelauncher minecraft лаунчер утилита">
+        <div class="game-media">
+          <img src="Gemini_Generated_Image_w491sxw491sxw491.jpeg" class="media-img main-img" alt="Farelauncher">
+          <span class="badge game-badge-abs">В РАЗРАБОТКЕ</span>
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="meta-row" style="margin-bottom:12px">
+              <span class="tag">Утилита</span>
+            </div>
+            <h2 class="card-title">Farelauncher</h2>
+          </div>
+          <p class="game-desc">
+            Удобный лаунчер для Minecraft. Проект находится в активной разработке. Следите за новостями в нашем Telegram!
+          </p>
+          <div class="card-footer">
+            <span class="status" style="color: #d97706;">Скоро выйдет</span>
+            <a class="launch" href="https://t.me/RIStudiosait" target="_blank" rel="noopener">
+              Telegram <span class="launch-arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Проект 3: FareMusic (Блок под Farelauncher, 4 колонки) -->
+      <article class="game-card standard" data-title="faremusic telegram bot музыка утилита">
+        <div class="game-media">
+          <img src="Gemini_Generated_Image_4rkdup4rkdup4rkd.jpeg" class="media-img main-img" alt="FareMusic">
+          <span class="badge game-badge-abs">В РАЗРАБОТКЕ</span>
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="meta-row" style="margin-bottom:12px">
+              <span class="tag">Telegram Bot</span>
+            </div>
+            <h2 class="card-title">FareMusic</h2>
+          </div>
+          <p class="game-desc">
+            Музыкальный бот для Telegram. Проект на стадии разработки. Все обновления публикуем в Telegram-канале!
+          </p>
+          <div class="card-footer">
+            <span class="status" style="color: #d97706;">Скоро выйдет</span>
+            <a class="launch" href="https://t.me/RIStudiosait" target="_blank" rel="noopener">
+              Telegram <span class="launch-arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <span>RI Studio Все права Защищены © 2026</span>
+      <div class="social-links">
+        <a href="https://youtu.be/dQw4w9WgXcQ?si=vLt5eNECbfqbARRZ" class="social-link" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <a href="https://tiktok.com" class="social-link" aria-label="TikTok" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></a>
+        <a href="https://t.me/RIStudiosait" class="social-link" aria-label="Telegram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const input = document.getElementById('search');
+    const cards = [...document.querySelectorAll('.game-card')];
+    const count = document.getElementById('count');
+
+    function update() {
+      if(!input) return;
+      const query = input.value.trim().toLowerCase();
+      let visible = 0;
+      cards.forEach(card => {
+        const match = card.dataset.title.includes(query);
+        card.classList.toggle('hidden', !match);
+        if (match) visible++;
+      });
+      count.textContent = visible === 0 ? 'Ничего не найдено' : `Показано ${visible} ${visible === 1 ? 'проект' : 'проектов'}`;
+    }
+    if(input) input.addEventListener('input', update);
+
+    const menuBtn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarClose = document.getElementById('sidebarClose');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    function openMenu() { sidebar.classList.add('open'); sidebarOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeMenu() { sidebar.classList.remove('open'); sidebarOverlay.classList.remove('open'); document.body.style.overflow = ''; }
+
+    menuBtn.addEventListener('click', openMenu);
+    sidebarClose.addEventListener('click', closeMenu);
+    sidebarOverlay.addEventListener('click', closeMenu);
+  </script>
+</body>
+</html>
