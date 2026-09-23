@@ -20,10 +20,13 @@
     .brand-avatar{width:42px;height:42px;border-radius:12px;object-fit:cover;border:1px solid var(--line);box-shadow:var(--shadow);}
     .menu-arrow{color:var(--muted);font-size:10px;margin-left:4px;transition:transform 0.2s ease;}
     .menu-btn:hover .menu-arrow{transform:translateY(2px);}
+    
+    /* Обновленное адаптивное меню */
     .sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);z-index:99;opacity:0;pointer-events:none;transition:opacity 0.3s ease;}
     .sidebar-overlay.open{opacity:1;pointer-events:auto;}
-    .sidebar{position:fixed;top:0;left:-320px;width:300px;height:100vh;background:var(--surface);box-shadow:var(--shadow);z-index:100;transition:left 0.3s ease;padding:30px 24px;display:flex;flex-direction:column;gap:30px;border-right:1px solid var(--line);}
+    .sidebar{position:fixed;top:0;left:-100%;width:min(300px, 85vw);height:100vh;background:var(--surface);box-shadow:var(--shadow);z-index:100;transition:left 0.3s ease;padding:30px 24px;display:flex;flex-direction:column;gap:30px;border-right:1px solid var(--line);}
     .sidebar.open{left:0;}
+    
     .sidebar-header{display:flex;justify-content:space-between;align-items:center;}
     .sidebar-close{background:var(--surface-2);border:1px solid var(--line);width:36px;height:36px;border-radius:50%;font-size:16px;cursor:pointer;display:grid;place-items:center;transition:background 0.2s;}
     .sidebar-close:hover{background:#e2e2e2;}
@@ -35,7 +38,7 @@
     .hero{padding:70px 0 36px}
     .eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:rgba(255,255,255,.7);font-size:12px;font-weight:750;text-transform:uppercase;letter-spacing:.08em;}
     .eyebrow span{width:7px;height:7px;border-radius:50%;background:#4f4f4f;display:inline-block}
-    h1{font-size:clamp(42px,7vw,80px);line-height:.95;letter-spacing:-.055em;margin:18px 0 16px;max-width:900px;}
+    h1{font-size:clamp(38px,7vw,80px);line-height:.95;letter-spacing:-.055em;margin:18px 0 16px;max-width:900px;}
     .lead{font-size:18px;line-height:1.6;color:var(--muted);max-width:720px;margin:0}
     .toolbar{margin:20px 0 34px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;}
     .search{width:min(420px,100%);display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-radius:14px;}
@@ -43,68 +46,26 @@
     .count{color:var(--muted);font-size:14px}
     .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;padding-bottom:70px;}
     
-    /* Стили карточек с правильными размерами */
     .game-card{min-height:390px;border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;}
     .game-card.featured { grid-column: span 8; }
     .game-card.standard { grid-column: span 4; }
-    
     .game-card:hover{transform:translateY(-4px);box-shadow:0 16px 44px rgba(0,0,0,.09);border-color:#c6c6c6}
     
-    /* Анимация картинок: изначально тусклые (dim) и черно-белые */
-    .game-media {
-      position: relative;
-      height: 235px;
-      background: var(--dark); /* Темный фон для усиления эффекта "тусклости" */
-      overflow: hidden;
-      border-bottom: 1px solid var(--line);
-    }
-    .media-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      position: absolute;
-      inset: 0;
-      transition: opacity 0.5s ease, filter 0.5s ease, transform 0.5s ease;
-      filter: grayscale(100%) brightness(0.55); /* Тускло и без цвета */
-    }
-    /* При наведении: яркие, цветные и немного больше */
-    .game-card:hover .media-img {
-      filter: grayscale(0%) brightness(1); 
-      transform: scale(1.03);
-    }
+    .game-media {position: relative; height: 235px; background: var(--dark); overflow: hidden; border-bottom: 1px solid var(--line);}
+    .media-img {width: 100%; height: 100%; object-fit: cover; object-position: center; position: absolute; inset: 0; transition: opacity 0.5s ease, filter 0.5s ease, transform 0.5s ease; filter: grayscale(100%) brightness(0.55);}
+    .game-card:hover .media-img {filter: grayscale(0%) brightness(1); transform: scale(1.03);}
     .main-img { opacity: 1; z-index: 1; }
     .hover-img { opacity: 0; z-index: 2; }
     .game-card:hover .main-img.has-hover { opacity: 0; }
     .game-card:hover .hover-img { opacity: 1; }
     
-    .game-badge-abs {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      z-index: 3;
-      background: rgba(255,255,255,.9);
-      border: 1px solid rgba(0,0,0,.08);
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 800;
-      backdrop-filter: blur(8px);
-    }
+    .game-badge-abs {position: absolute; top: 20px; right: 20px; z-index: 3; background: rgba(255,255,255,.9); border: 1px solid rgba(0,0,0,.08); padding: 8px 10px; border-radius: 999px; font-size: 12px; font-weight: 800; backdrop-filter: blur(8px);}
     
-    .card-title {
-      font-size: clamp(28px, 4vw, 36px);
-      letter-spacing: -.04em;
-      line-height: 1.1;
-      margin: 0;
-    }
-    .game-card.standard .card-title {
-      font-size: clamp(22px, 3vw, 26px);
-    }
-
+    .card-title {font-size: clamp(28px, 4vw, 36px); letter-spacing: -.04em; line-height: 1.1; margin: 0;}
+    .game-card.standard .card-title {font-size: clamp(22px, 3vw, 26px);}
     .meta-row{display:flex;gap:8px;flex-wrap:wrap}
     .tag{padding:7px 10px;border:1px solid var(--line);background:var(--surface-2);border-radius:999px;font-size:12px;color:#5d5d5d}
-    .card-body{padding:20px 24px;display:flex;flex-direction:column;gap:16px;flex:1}
+    .card-body{padding:24px;display:flex;flex-direction:column;gap:16px;flex:1}
     .game-desc{margin:0;color:var(--muted);font-size:15px;line-height:1.6;max-width:680px}
     .game-card.standard .game-desc { font-size: 14px; }
     
@@ -123,15 +84,25 @@
     .social-link svg{width:22px;height:22px;fill:currentColor;}
     .hidden{display:none!important}
     
+    /* АДАПТИВНОСТЬ */
     @media (max-width:900px){
       .game-card.featured, .game-card.standard { grid-column: span 12; }
-      .hero{padding-top:48px}
+      .hero { padding-top: 48px; }
     }
-    @media (max-width:560px){
-      .wrap{width:min(100% - 20px,1180px)} .nav{min-height:68px} .pill{display:none} 
-      .game-media{height:180px} .card-body{padding:16px} 
-      .card-footer{align-items:flex-start;flex-direction:column} .launch{width:100%;justify-content:center} 
-      h1{font-size:48px} .foot{flex-direction:column-reverse;justify-content:center;text-align:center;}
+    @media (max-width:600px){
+      .wrap { width: calc(100% - 24px); }
+      .nav { min-height: 64px; }
+      .pill { display: none; }
+      .hero { padding: 40px 0 20px; }
+      .toolbar { flex-direction: column; align-items: stretch; gap: 16px; }
+      .search { width: 100%; }
+      .count { text-align: center; }
+      .game-card { min-height: auto; }
+      .game-media { height: 200px; }
+      .card-body { padding: 20px 16px; }
+      .card-footer { flex-direction: column; align-items: stretch; text-align: center; gap: 14px; }
+      .launch { width: 100%; justify-content: center; }
+      .foot { flex-direction: column-reverse; justify-content: center; text-align: center; gap: 16px; }
     }
   </style>
 </head>
@@ -175,13 +146,13 @@
           <span aria-hidden="true">⌕</span>
           <input id="search" type="search" placeholder="Поиск по проектам…" autocomplete="off" />
         </label>
-        
+        <span id="count" class="count">Показано 3 проекта</span>
       </div>
     </section>
 
     <section id="grid" class="grid" aria-label="Игры">
       
-      <!-- Проект 1: Солнечная Долина (Крупный блок, 8 колонок) -->
+      <!-- Проект 1: Солнечная Долина -->
       <article class="game-card featured" data-title="солнечная долина ферма стратегия">
         <div class="game-media">
           <img src="e01aa049-36d7-4063-8caa-7560de19d6a2.png" class="media-img main-img has-hover" alt="Главное меню Солнечной Долины">
@@ -210,7 +181,7 @@
         </div>
       </article>
 
-      <!-- Проект 2: Farelauncher (Блок сбоку, 4 колонки) -->
+      <!-- Проект 2: Farelauncher -->
       <article class="game-card standard" data-title="farelauncher minecraft лаунчер утилита">
         <div class="game-media">
           <img src="Gemini_Generated_Image_w491sxw491sxw491.jpeg" class="media-img main-img" alt="Farelauncher">
@@ -235,7 +206,7 @@
         </div>
       </article>
 
-      <!-- Проект 3: FareMusic (Блок под Farelauncher, 4 колонки) -->
+      <!-- Проект 3: FareMusic -->
       <article class="game-card standard" data-title="faremusic telegram bot музыка утилита">
         <div class="game-media">
           <img src="Gemini_Generated_Image_4rkdup4rkdup4rkd.jpeg" class="media-img main-img" alt="FareMusic">

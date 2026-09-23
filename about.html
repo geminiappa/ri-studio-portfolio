@@ -7,7 +7,6 @@
   <title>О нас — RI Studio</title>
   <link rel="icon" href="Gemini_Generated_Image_hmvg8ohmvg8ohmvg.jpeg" type="image/jpeg" />
   <style>
-    /* Базовые стили */
     :root{--bg:#f1f1f1;--surface:#ffffff;--surface-2:#f7f7f7;--line:#d8d8d8;--text:#171717;--muted:#767676;--dark:#222222;--radius:22px;--shadow:0 10px 30px rgba(0,0,0,.05);}
     *{box-sizing:border-box} html{scroll-behavior:smooth}
     body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--text);background:linear-gradient(rgba(0,0,0,.028) 1px, transparent 1px),linear-gradient(90deg, rgba(0,0,0,.028) 1px, transparent 1px),var(--bg);background-size:32px 32px;overflow-x:hidden;}
@@ -20,10 +19,12 @@
     .brand-avatar{width:42px;height:42px;border-radius:12px;object-fit:cover;border:1px solid var(--line);box-shadow:var(--shadow);}
     .menu-arrow{color:var(--muted);font-size:10px;margin-left:4px;transition:transform 0.2s ease;}
     .menu-btn:hover .menu-arrow{transform:translateY(2px);}
+    
     .sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);z-index:99;opacity:0;pointer-events:none;transition:opacity 0.3s ease;}
     .sidebar-overlay.open{opacity:1;pointer-events:auto;}
-    .sidebar{position:fixed;top:0;left:-320px;width:300px;height:100vh;background:var(--surface);box-shadow:var(--shadow);z-index:100;transition:left 0.3s ease;padding:30px 24px;display:flex;flex-direction:column;gap:30px;border-right:1px solid var(--line);}
+    .sidebar{position:fixed;top:0;left:-100%;width:min(300px, 85vw);height:100vh;background:var(--surface);box-shadow:var(--shadow);z-index:100;transition:left 0.3s ease;padding:30px 24px;display:flex;flex-direction:column;gap:30px;border-right:1px solid var(--line);}
     .sidebar.open{left:0;}
+    
     .sidebar-header{display:flex;justify-content:space-between;align-items:center;}
     .sidebar-close{background:var(--surface-2);border:1px solid var(--line);width:36px;height:36px;border-radius:50%;font-size:16px;cursor:pointer;display:grid;place-items:center;transition:background 0.2s;}
     .sidebar-close:hover{background:#e2e2e2;}
@@ -33,11 +34,10 @@
     .nav-right{display:flex;align-items:center;gap:10px}
     .pill{border:1px solid var(--line);background:var(--surface);padding:9px 13px;border-radius:999px;color:#555;font-size:13px;font-weight:650;}
     
-    /* Стили контента для внутренних страниц */
     .hero{padding:70px 0 36px}
     .eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:rgba(255,255,255,.7);font-size:12px;font-weight:750;text-transform:uppercase;letter-spacing:.08em;}
     .eyebrow span{width:7px;height:7px;border-radius:50%;background:#4f4f4f;display:inline-block}
-    h1{font-size:clamp(42px,7vw,80px);line-height:.95;letter-spacing:-.055em;margin:18px 0 16px;max-width:900px;}
+    h1{font-size:clamp(38px,7vw,80px);line-height:.95;letter-spacing:-.055em;margin:18px 0 16px;max-width:900px;}
     .lead{font-size:18px;line-height:1.6;color:var(--muted);max-width:720px;margin:0}
     
     .text-block { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 40px; box-shadow: var(--shadow); margin-bottom: 70px; }
@@ -54,7 +54,17 @@
     .social-link:hover{color:var(--text);transform:translateY(-2px);}
     .social-link svg{width:22px;height:22px;fill:currentColor;}
     
-    @media (max-width:560px){.nav{min-height:68px} .pill{display:none} h1{font-size:48px} .text-block{padding: 24px;} .foot{flex-direction:column-reverse;justify-content:center;text-align:center;}}
+    /* АДАПТИВНОСТЬ */
+    @media (max-width:600px){
+      .wrap { width: calc(100% - 24px); }
+      .nav { min-height: 64px; }
+      .pill { display: none; }
+      .hero { padding: 40px 0 20px; }
+      .text-block { padding: 24px 20px; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .skill-card { font-size: 13px; padding: 12px; }
+      .foot { flex-direction: column-reverse; justify-content: center; text-align: center; gap: 16px; }
+    }
   </style>
 </head>
 <body>
