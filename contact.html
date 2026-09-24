@@ -13,88 +13,84 @@
     a{text-decoration:none;color:inherit} button,input{font:inherit}
     .wrap{width:min(1180px,calc(100% - 32px));margin:0 auto}
     header{position:sticky;top:0;z-index:10;backdrop-filter:blur(16px);background:rgba(241,241,241,.87);border-bottom:1px solid rgba(0,0,0,.07); transition: transform 0.3s ease;}
-    .nav{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px;}
-    .menu-btn{background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.02em;font-size:16px;color:var(--text);transition:opacity 0.2s;}
+    .nav{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+    .menu-btn{background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.02em;font-size:15px;color:var(--text);transition:opacity 0.2s;}
     .menu-btn:hover{opacity:0.8;}
-    .brand-avatar{width:42px;height:42px;border-radius:12px;object-fit:cover;border:1px solid var(--line);box-shadow:var(--shadow);}
-    .menu-arrow{color:var(--muted);font-size:10px;margin-left:4px;transition:transform 0.2s ease;}
-    .menu-btn:hover .menu-arrow{transform:translateY(2px);}
+    .brand-avatar{width:38px;height:38px;border-radius:10px;object-fit:cover;border:1px solid var(--line);box-shadow:var(--shadow);}
+    .menu-arrow{color:var(--muted);font-size:10px;margin-left:2px;transition:transform 0.2s ease;}
     
     .sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);z-index:99;opacity:0;pointer-events:none;transition:opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);}
     .sidebar-overlay.open{opacity:1;pointer-events:auto;}
-    .sidebar{position:fixed;top:0;left:-100%;width:min(300px, 85vw);height:100vh;background:var(--surface);box-shadow:var(--shadow);z-index:100;transition:left 0.4s cubic-bezier(0.4, 0, 0.2, 1);padding:30px 24px;display:flex;flex-direction:column;gap:30px;border-right:1px solid var(--line);}
+    .sidebar{position:fixed;top:0;left:-100%;width:min(280px, 85vw);height:100vh;background:var(--surface);box-shadow:var(--shadow);z-index:100;transition:left 0.4s cubic-bezier(0.4, 0, 0.2, 1);padding:24px 20px;display:flex;flex-direction:column;gap:24px;border-right:1px solid var(--line);}
     .sidebar.open{left:0;}
     
     .sidebar-header{display:flex;justify-content:space-between;align-items:center;}
-    .sidebar-close{background:var(--surface-2);border:1px solid var(--line);width:36px;height:36px;border-radius:50%;font-size:16px;cursor:pointer;display:grid;place-items:center;transition:all 0.2s ease;}
+    .sidebar-close{background:var(--surface-2);border:1px solid var(--line);width:34px;height:34px;border-radius:50%;font-size:15px;cursor:pointer;display:grid;place-items:center;transition:all 0.2s ease;}
     .sidebar-close:hover{background:#e2e2e2; transform: rotate(90deg);}
-    .sidebar-nav{display:flex;flex-direction:column;gap:16px;font-size:18px;font-weight:600;}
-    .sidebar-nav a{padding:10px 14px;border-radius:12px;transition:all 0.2s ease;}
-    .sidebar-nav a:hover, .sidebar-nav a.active{background:var(--surface-2); transform: translateX(5px);}
-    .nav-right{display:flex;align-items:center;gap:10px}
-    .pill{border:1px solid var(--line);background:var(--surface);padding:9px 13px;border-radius:999px;color:#555;font-size:13px;font-weight:650;transition:all 0.3s ease;}
-    .pill:hover{box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-1px); color: var(--text);}
+    .sidebar-nav{display:flex;flex-direction:column;gap:12px;font-size:17px;font-weight:600;}
+    .sidebar-nav a{padding:10px 12px;border-radius:10px;transition:all 0.2s ease;}
+    .sidebar-nav a:hover, .sidebar-nav a.active{background:var(--surface-2); transform: translateX(4px);}
+    .nav-right{display:flex;align-items:center;gap:8px}
+    .pill{border:1px solid var(--line);background:var(--surface);padding:7px 11px;border-radius:999px;color:#555;font-size:12px;font-weight:650;transition:all 0.3s ease;}
     
-    .hero{padding:70px 0 36px}
-    .eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:rgba(255,255,255,.7);font-size:12px;font-weight:750;text-transform:uppercase;letter-spacing:.08em;}
-    .eyebrow span{width:7px;height:7px;border-radius:50%;background:#4f4f4f;display:inline-block; transition: transform 0.3s ease;}
-    .eyebrow:hover span{transform: scale(1.5);}
-    h1{font-size:clamp(38px,7vw,80px);line-height:.95;letter-spacing:-.055em;margin:18px 0 16px;max-width:900px;}
-    .lead{font-size:18px;line-height:1.6;color:var(--muted);max-width:720px;margin:0}
+    .hero{padding:50px 0 28px}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:rgba(255,255,255,.7);font-size:11px;font-weight:750;text-transform:uppercase;letter-spacing:.08em;}
+    .eyebrow span{width:6px;height:6px;border-radius:50%;background:#4f4f4f;display:inline-block;}
+    h1{font-size:clamp(32px, 7vw, 64px);line-height:1;letter-spacing:-.04em;margin:14px 0 12px;}
+    .lead{font-size:16px;line-height:1.5;color:var(--muted);max-width:720px;margin:0}
     
-    /* === СТИЛЬ КАРТОЧЕК КОМАНДЫ === */
-    .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; margin-bottom: 70px; }
+    /* Сетка карточек команды */
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; margin-bottom: 50px; }
     
     .member-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); position: relative; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease; display: flex; flex-direction: column;}
-    .member-card:hover { transform: translateY(-8px); box-shadow: 0 22px 44px rgba(0,0,0,.12); }
+    .member-card:hover { transform: translateY(-6px); box-shadow: 0 18px 36px rgba(0,0,0,.1); }
     
-    /* Видео-шапка профиля */
-    .member-cover { position: relative; height: 140px; background: #e0e0e0; overflow: hidden; }
-    .member-cover video { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1; filter: brightness(0.8); transition: filter 0.4s ease;}
-    .member-card:hover .member-cover video { filter: brightness(1); }
-    /* Плавный градиент для перехода от видео к фону карточки */
+    .member-cover { position: relative; height: 120px; background: #e0e0e0; overflow: hidden; }
+    .member-cover video { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1; filter: brightness(0.85); transition: filter 0.4s ease;}
     .member-cover::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(to top, var(--surface), transparent); z-index: 2; }
 
-    /* Тело карточки (информация) */
-    .member-info { padding: 0 24px 24px; position: relative; z-index: 3; display: flex; flex-direction: column; flex: 1; }
+    .member-info { padding: 0 20px 20px; position: relative; z-index: 3; display: flex; flex-direction: column; flex: 1; }
     
-    /* Аватарка (круг над видео) */
-    .member-avatar { width: 80px; height: 80px; border-radius: 50%; background: var(--surface-2); border: 4px solid var(--surface); margin-top: -40px; margin-bottom: 12px; position: relative; z-index: 4; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .member-avatar { width: 70px; height: 70px; border-radius: 50%; background: var(--surface-2); border: 3px solid var(--surface); margin-top: -35px; margin-bottom: 10px; position: relative; z-index: 4; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; }
     .member-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
-    .member-name { font-size: 24px; font-weight: 800; margin: 0 0 4px; letter-spacing: -0.02em; color: var(--text); }
-    .member-role { font-size: 13px; font-weight: 700; color: #fff; background: var(--text); display: inline-block; padding: 4px 10px; border-radius: 6px; margin-bottom: 20px; align-self: flex-start; text-transform: uppercase; letter-spacing: 0.05em;}
+    .member-name { font-size: 21px; font-weight: 800; margin: 0 0 4px; letter-spacing: -0.02em; color: var(--text); }
+    .member-role { font-size: 12px; font-weight: 700; color: #fff; background: var(--text); display: inline-block; padding: 4px 8px; border-radius: 6px; margin-bottom: 16px; align-self: flex-start; text-transform: uppercase; letter-spacing: 0.05em;}
     
-    .member-socials { display: flex; gap: 10px; align-items: center; margin-top: auto; }
-    .social-btn { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; color: var(--text); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-    .social-btn:hover { background: var(--text); color: var(--surface); border-color: var(--text); transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,.15); }
-    .social-btn svg { width: 20px; height: 20px; fill: currentColor; }
+    .member-socials { display: flex; gap: 8px; align-items: center; margin-top: auto; }
+    .social-btn { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; color: var(--text); transition: all 0.3s ease; }
+    .social-btn:hover { background: var(--text); color: var(--surface); border-color: var(--text); transform: translateY(-2px); }
+    .social-btn svg { width: 18px; height: 18px; fill: currentColor; }
     
-    .social-soon { font-size: 13px; color: var(--muted); font-weight: 600; font-style: italic; background: rgba(0,0,0,0.03); padding: 10px 16px; border-radius: 12px; text-align: center; width: 100%; display: flex; justify-content: center; align-items: center; height: 44px; border: 1px dashed var(--line);}
+    .social-soon { font-size: 12px; color: var(--muted); font-weight: 600; font-style: italic; background: rgba(0,0,0,0.03); padding: 8px 12px; border-radius: 10px; text-align: center; width: 100%; display: flex; justify-content: center; align-items: center; height: 40px; border: 1px dashed var(--line);}
 
-    footer{border-top:1px solid var(--line);padding:32px 0 44px;color:var(--muted);font-size:13px}
-    .foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
-    .social-links-footer{display:flex;gap:16px;align-items:center;}
-    .social-link-footer{color:var(--muted);transition:all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);display:flex;}
-    .social-link-footer:hover{color:var(--text);transform:translateY(-4px) scale(1.1);}
-    .social-link-footer svg{width:22px;height:22px;fill:currentColor;}
+    footer{border-top:1px solid var(--line);padding:24px 0 36px;color:var(--muted);font-size:12px}
+    .foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+    .social-links-footer{display:flex;gap:12px;align-items:center;}
+    .social-link-footer{color:var(--muted);transition:all 0.3s ease;display:flex;}
+    .social-link-footer:hover{color:var(--text);transform:translateY(-2px);}
+    .social-link-footer svg{width:20px;height:20px;fill:currentColor;}
     
-    /* СИСТЕМА АНИМАЦИЙ (ПОЯВЛЕНИЕ ЭЛЕМЕНТОВ) */
-    .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: opacity, transform; }
+    /* АНИМАЦИИ */
+    .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: opacity, transform; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
     .delay-1 { transition-delay: 0.1s; }
     .delay-2 { transition-delay: 0.2s; }
     .delay-3 { transition-delay: 0.3s; }
 
-    /* АДАПТИВНОСТЬ */
-    @media (max-width:600px){
-      .wrap { width: calc(100% - 24px); }
-      .nav { min-height: 64px; }
-      .pill { display: none; }
-      .hero { padding: 40px 0 20px; }
-      .team-grid { grid-template-columns: 1fr; }
-      .member-info { padding: 0 20px 20px; }
-      .foot { flex-direction: column-reverse; justify-content: center; text-align: center; gap: 16px; }
+    /* АДАПТИВНОСТЬ ПОД МОБИЛЬНЫЕ УСТРОЙСТВА */
+    @media (max-width: 600px) {
+      .wrap { width: calc(100% - 20px); }
+      .nav { min-height: 60px; }
+      .pill { display: none; } /* Скрываем плашки портфолио/инди на узких экранах телефонов для экономии места */
+      .hero { padding: 32px 0 20px; }
+      .team-grid { grid-template-columns: 1fr; gap: 16px; }
+      .member-cover { height: 100px; }
+      .member-info { padding: 0 16px 16px; }
+      .member-avatar { width: 60px; height: 60px; margin-top: -30px; border-width: 2px; }
+      .member-name { font-size: 19px; }
+      .lead { font-size: 15px; }
+      .foot { flex-direction: column-reverse; justify-content: center; text-align: center; gap: 12px; }
     }
   </style>
 </head>
@@ -102,7 +98,7 @@
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
-      <h2 style="margin: 0; font-size: 20px;">Меню</h2>
+      <h2 style="margin: 0; font-size: 18px;">Меню</h2>
       <button class="sidebar-close" id="sidebarClose" aria-label="Закрыть меню">✕</button>
     </div>
     <nav class="sidebar-nav">
@@ -141,7 +137,6 @@
           <video src="gameleader.mp4" autoplay loop muted playsinline></video>
         </div>
         <div class="member-info">
-          <!-- Аватарка Ивана -->
           <div class="member-avatar">
             <img src="Gemini_Generated_Image_o5sclpo5sclpo5sc.jpeg" alt="Иван Русецкий">
           </div>
@@ -168,7 +163,6 @@
           <video src="desing.mp4" autoplay loop muted playsinline></video>
         </div>
         <div class="member-info">
-          <!-- Аватарка Никиты 1 -->
           <div class="member-avatar">
             <img src="Gemini_Generated_Image_h28leh28leh28leh.jpeg" alt="Никита Юрчик">
           </div>
@@ -186,7 +180,6 @@
           <video src="desing.mp4" autoplay loop muted playsinline></video>
         </div>
         <div class="member-info">
-          <!-- Аватарка Никиты 2 -->
           <div class="member-avatar">
             <img src="Gemini_Generated_Image_h28leh28leh28leh.jpeg" alt="Никита Тумилович">
           </div>
@@ -213,7 +206,6 @@
   </footer>
 
   <script>
-    /* Логика меню */
     const menuBtn = document.getElementById('menuBtn');
     const sidebar = document.getElementById('sidebar');
     const sidebarClose = document.getElementById('sidebarClose');
@@ -226,7 +218,6 @@
     sidebarClose.addEventListener('click', closeMenu);
     sidebarOverlay.addEventListener('click', closeMenu);
 
-    /* Анимации при скролле */
     document.addEventListener("DOMContentLoaded", () => {
       const fadeElements = document.querySelectorAll('.fade-up');
       const observer = new IntersectionObserver((entries, obs) => {
@@ -236,17 +227,16 @@
             obs.unobserve(entry.target);
           }
         });
-      }, { root: null, rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
+      }, { root: null, rootMargin: '0px 0px -30px 0px', threshold: 0.1 });
 
       fadeElements.forEach(el => observer.observe(el));
     });
 
-    /* Скрытие хедера при скролле вниз */
     let lastScroll = 0;
     const header = document.getElementById('mainHeader');
     window.addEventListener('scroll', () => {
       const currentScroll = window.pageYOffset;
-      if (currentScroll > 100 && currentScroll > lastScroll) {
+      if (currentScroll > 80 && currentScroll > lastScroll) {
         header.style.transform = 'translateY(-100%)';
       } else {
         header.style.transform = 'translateY(0)';
