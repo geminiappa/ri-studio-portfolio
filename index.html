@@ -12,7 +12,7 @@
     *{box-sizing:border-box} html{scroll-behavior:smooth}
     body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--text);background:linear-gradient(rgba(0,0,0,.028) 1px, transparent 1px),linear-gradient(90deg, rgba(0,0,0,.028) 1px, transparent 1px),var(--bg);background-size:32px 32px;overflow-x:hidden;}
     
-    /* === ИНТРО С АБСОЛЮТНО ПЛАВНЫМ ПОЯВЛЕНИЕМ И ЗАТУХАНИЕМ === */
+    /* === ИНТРО С СУПЕР ПЛАВНЫМ ЗАТУХАНИЕМ === */
     #introScreen {
       position: fixed;
       inset: 0;
@@ -21,12 +21,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      opacity: 0;
-      animation: fadeInIntro 0.6s ease forwards; /* Плавное появление самого экрана */
-      transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    @keyframes fadeInIntro {
-      to { opacity: 1; }
+      opacity: 1;
+      /* Плавное затухание теперь длится 1.2 секунды для максимальной мягкости */
+      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
     #introScreen.fade-out {
       opacity: 0;
@@ -198,7 +195,6 @@
   <!-- АВТОМАТИЧЕСКОЕ ИНТРО НА ВЕСЬ ЭКРАН -->
   <div id="introScreen">
     <div class="intro-content">
-      <!-- muted гарантирует 100% автозапуск на всех браузерах и мобилках -->
       <video id="introVideo" src="intro.mp4" autoplay muted playsinline></video>
       <button class="skip-intro" id="skipIntroBtn">Пропустить</button>
     </div>
@@ -376,7 +372,7 @@
   </div>
 
   <script>
-    /* Автоматическое плавное интро без кликов */
+    /* Автоматическое плавное интро с подстраховкой затухания */
     const introScreen = document.getElementById('introScreen');
     const mainWebsite = document.getElementById('mainWebsite');
     const skipIntroBtn = document.getElementById('skipIntroBtn');
@@ -384,20 +380,26 @@
 
     function closeIntro() {
       if (introScreen.classList.contains('fade-out')) return;
-      introScreen.classList.add('fade-out'); // Запускает плавное затухание (opacity 0)
+      introScreen.classList.add('fade-out'); // Плавное исчезновение шторки
       mainWebsite.classList.add('visible');  // Плавное появление сайта
     }
 
-    // Видео запускается автоматически (так как оно muted, браузеры не блокируют)
+    // Автоматически запускаем видео
     introVideo.play().catch(() => {
-      // На редких старых устройствах, если автоплей не сработал, сразу открываем сайт
       closeIntro();
     });
 
-    // Когда видео заканчивается, срабатывает плавное затухание
+    // Хитрый триггер: за 1 секунду до конца видео начинаем плавное затухание, чтобы не было резкого обрыва
+    introVideo.addEventListener('timeupdate', () => {
+      if (introVideo.duration && (introVideo.duration - introVideo.currentTime <= 1.0)) {
+        closeIntro();
+      }
+    });
+
+    // На всякий случай дублируем по окончанию
     introVideo.addEventListener('ended', closeIntro);
 
-    // Кнопка пропуска (если пользователь захочет пропустить раньше)
+    // Кнопка пропуска
     skipIntroBtn.addEventListener('click', closeIntro);
 
     /* Поиск по проектам */
