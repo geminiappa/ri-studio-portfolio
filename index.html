@@ -12,7 +12,7 @@
     *{box-sizing:border-box} html{scroll-behavior:smooth}
     body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--text);background:linear-gradient(rgba(0,0,0,.028) 1px, transparent 1px),linear-gradient(90deg, rgba(0,0,0,.028) 1px, transparent 1px),var(--bg);background-size:32px 32px;overflow-x:hidden;}
     
-    /* === ИНТРО НА ВЕСЬ ЭКРАН === */
+    /* === ИНТРО С АБСОЛЮТНО ПЛАВНЫМ ПОЯВЛЕНИЕМ И ЗАТУХАНИЕМ === */
     #introScreen {
       position: fixed;
       inset: 0;
@@ -21,9 +21,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
+      opacity: 0;
+      animation: fadeInIntro 0.6s ease forwards; /* Плавное появление самого экрана */
+      transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    #introScreen.hidden {
+    @keyframes fadeInIntro {
+      to { opacity: 1; }
+    }
+    #introScreen.fade-out {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
@@ -40,10 +45,10 @@
     .intro-content video {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* Растягивает видео на весь экран без искажений */
+      object-fit: cover;
       outline: none;
     }
-    /* Тусклая, ненавязчивая кнопка пропуска */
+    /* Тусклая кнопка пропуска */
     .skip-intro {
       position: absolute;
       bottom: 30px;
@@ -64,11 +69,11 @@
       color: rgba(255, 255, 255, 1);
     }
 
-    /* Плавное появление сайта после интро */
+    /* Плавное появление сайта */
     #mainWebsite {
       opacity: 0;
       transform: translateY(15px);
-      transition: opacity 1s ease, transform 1s ease;
+      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
     #mainWebsite.visible {
       opacity: 1;
@@ -190,11 +195,11 @@
 </head>
 <body>
 
-  <!-- ИНТРО НА ВЕСЬ ЭКРАН -->
+  <!-- АВТОМАТИЧЕСКОЕ ИНТРО НА ВЕСЬ ЭКРАН -->
   <div id="introScreen">
     <div class="intro-content">
-      <!-- Видео на весь экран с приглушенным звуком (громкость 0.3 = 30%) -->
-      <video id="introVideo" src="intro.mp4" autoplay playsinline></video>
+      <!-- muted гарантирует 100% автозапуск на всех браузерах и мобилках -->
+      <video id="introVideo" src="intro.mp4" autoplay muted playsinline></video>
       <button class="skip-intro" id="skipIntroBtn">Пропустить</button>
     </div>
   </div>
@@ -371,26 +376,28 @@
   </div>
 
   <script>
-    /* Логика видео-интро на весь экран со звуком */
+    /* Автоматическое плавное интро без кликов */
     const introScreen = document.getElementById('introScreen');
     const mainWebsite = document.getElementById('mainWebsite');
     const skipIntroBtn = document.getElementById('skipIntroBtn');
     const introVideo = document.getElementById('introVideo');
 
-    // Устанавливаем приглушенную громкость (30%)
-    introVideo.volume = 0.3;
-
     function closeIntro() {
-      if (introScreen.classList.contains('hidden')) return;
-      introVideo.pause(); // Останавливаем воспроизведение
-      introScreen.classList.add('hidden');
-      mainWebsite.classList.add('visible');
+      if (introScreen.classList.contains('fade-out')) return;
+      introScreen.classList.add('fade-out'); // Запускает плавное затухание (opacity 0)
+      mainWebsite.classList.add('visible');  // Плавное появление сайта
     }
 
-    // Автоматическое закрытие по окончанию видео
+    // Видео запускается автоматически (так как оно muted, браузеры не блокируют)
+    introVideo.play().catch(() => {
+      // На редких старых устройствах, если автоплей не сработал, сразу открываем сайт
+      closeIntro();
+    });
+
+    // Когда видео заканчивается, срабатывает плавное затухание
     introVideo.addEventListener('ended', closeIntro);
 
-    // Кнопка пропуска
+    // Кнопка пропуска (если пользователь захочет пропустить раньше)
     skipIntroBtn.addEventListener('click', closeIntro);
 
     /* Поиск по проектам */
