@@ -40,12 +40,15 @@
     .lead{font-size:16px;line-height:1.5;color:var(--muted);max-width:720px;margin:0}
     
     /* Блок поддержки */
-    .support-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 40px; box-shadow: var(--shadow); margin-bottom: 70px; display: flex; flex-direction: column; gap: 24px; max-width: 800px; }
+    .support-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 40px; box-shadow: var(--shadow); margin-bottom: 70px; display: flex; flex-direction: column; gap: 20px; max-width: 800px; }
     .support-card h2 { font-size: 26px; margin: 0; letter-spacing: -0.02em; }
     .support-card p { color: var(--muted); line-height: 1.6; font-size: 15px; margin: 0; }
     
-    .ticket-btn { background: var(--text); color: var(--surface); border: 1px solid var(--text); border-radius: 14px; padding: 16px 24px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; gap: 10px; transition: all .3s cubic-bezier(0.25, 0.8, 0.25, 1); box-shadow: 0 4px 16px rgba(0,0,0,.15); font-size: 16px; width: fit-content; }
-    .ticket-btn:hover { background: var(--surface); color: var(--text); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+    /* Кнопка с точно такой же анимацией стрелки, как на главной */
+    .launch { background: var(--surface); color: var(--text); border: 1px solid var(--line); border-radius: 12px; padding: 12px 20px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; transition: all .3s cubic-bezier(0.25, 0.8, 0.25, 1); box-shadow: 0 2px 8px rgba(0,0,0,.02); font-size: 15px; width: fit-content; }
+    .launch:hover { background: var(--text); color: var(--surface); transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0,0,0,.15); border-color: var(--text); }
+    .launch-arrow { color: inherit; font-weight: normal; transition: transform 0.3s ease; display: inline-block; }
+    .launch:hover .launch-arrow { transform: translate(2px, -2px); }
     
     footer{border-top:1px solid var(--line);padding:24px 0 36px;color:var(--muted);font-size:12px}
     .foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
@@ -66,7 +69,7 @@
       .pill { display: none; }
       .hero { padding: 32px 0 20px; }
       .support-card { padding: 24px 20px; }
-      .ticket-btn { width: 100%; }
+      .launch { width: 100%; justify-content: center; }
       .foot { flex-direction: column-reverse; justify-content: center; text-align: center; gap: 12px; }
     }
   </style>
@@ -104,7 +107,7 @@
     <section class="hero">
       <span class="eyebrow fade-up delay-1"><span></span> Помощь игрокам</span>
       <h1 class="fade-up delay-2">Служба поддержки.</h1>
-возникли вопросы по играм или баги? Создайте тикет, и наша команда быстро вам поможет.
+      <p class="lead fade-up delay-3">Возникли вопросы по играм или баги? Создайте тикет, и наша команда быстро вам поможет.</p>
     </section>
 
     <section class="support-card fade-up">
@@ -112,8 +115,8 @@
       <p>
         Наша система тикетов позволяет оперативно отслеживать обращения, общаться с разработчиками и решать любые технические проблемы с нашими играми и сервисами.
       </p>
-      <a class="ticket-btn" href="https://ri-studio-support.onrender.com/" target="_blank" rel="noopener">
-        Написать тикет ↗
+      <a class="launch" href="https://ri-studio-support.onrender.com/" target="_blank" rel="noopener">
+        Написать тикет <span class="launch-arrow" aria-hidden="true">↗</span>
       </a>
     </section>
   </main>
