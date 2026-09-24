@@ -12,11 +12,11 @@
     *{box-sizing:border-box} html{scroll-behavior:smooth}
     body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--text);background:linear-gradient(rgba(0,0,0,.028) 1px, transparent 1px),linear-gradient(90deg, rgba(0,0,0,.028) 1px, transparent 1px),var(--bg);background-size:32px 32px;overflow-x:hidden;}
     
-    /* === СТИЛИ ИНТРО-ЗАСТАВКИ С ВИДЕО === */
+    /* === ИНТРО НА ВЕСЬ ЭКРАН === */
     #introScreen {
       position: fixed;
       inset: 0;
-      background: #f1f1f1; /* Сливается с фоном сайта */
+      background: #f1f1f1;
       z-index: 9999;
       display: flex;
       align-items: center;
@@ -29,32 +29,39 @@
       pointer-events: none;
     }
     .intro-content {
-      width: min(650px, 92vw);
+      position: relative;
+      width: 100vw;
+      height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 20px;
+      justify-content: center;
+      background: #f1f1f1;
     }
     .intro-content video {
       width: 100%;
-      height: auto;
-      border-radius: 16px;
+      height: 100%;
+      object-fit: cover; /* Растягивает видео на весь экран без искажений */
       outline: none;
     }
+    /* Тусклая, ненавязчивая кнопка пропуска */
     .skip-intro {
-      background: none;
-      border: 1px solid var(--line);
-      color: var(--muted);
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+      background: rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.7);
       padding: 8px 16px;
       border-radius: 999px;
       font-size: 13px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
+      z-index: 10000;
     }
     .skip-intro:hover {
-      background: var(--surface);
-      color: var(--text);
-      border-color: var(--text);
+      background: rgba(0, 0, 0, 0.3);
+      color: rgba(255, 255, 255, 1);
     }
 
     /* Плавное появление сайта после интро */
@@ -177,16 +184,18 @@
       .card-footer { flex-direction: column; align-items: stretch; text-align: center; gap: 12px; }
       .launch { width: 100%; justify-content: center; }
       .foot { flex-direction: column-reverse; justify-content: center; text-align: center; gap: 12px; }
+      .skip-intro { bottom: 20px; right: 20px; padding: 6px 12px; font-size: 12px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ИНТРО ЗАСТАВКА С ВИДЕО intro.mp4 -->
+  <!-- ИНТРО НА ВЕСЬ ЭКРАН -->
   <div id="introScreen">
     <div class="intro-content">
-      <video id="introVideo" src="intro.mp4" autoplay muted playsinline></video>
-      <button class="skip-intro" id="skipIntroBtn">Пропустить интро</button>
+      <!-- Видео на весь экран с приглушенным звуком (громкость 0.3 = 30%) -->
+      <video id="introVideo" src="intro.mp4" autoplay playsinline></video>
+      <button class="skip-intro" id="skipIntroBtn">Пропустить</button>
     </div>
   </div>
 
@@ -362,19 +371,23 @@
   </div>
 
   <script>
-    /* Логика видео-интро */
+    /* Логика видео-интро на весь экран со звуком */
     const introScreen = document.getElementById('introScreen');
     const mainWebsite = document.getElementById('mainWebsite');
     const skipIntroBtn = document.getElementById('skipIntroBtn');
     const introVideo = document.getElementById('introVideo');
 
+    // Устанавливаем приглушенную громкость (30%)
+    introVideo.volume = 0.3;
+
     function closeIntro() {
       if (introScreen.classList.contains('hidden')) return;
+      introVideo.pause(); // Останавливаем воспроизведение
       introScreen.classList.add('hidden');
       mainWebsite.classList.add('visible');
     }
 
-    // Когда видео заканчивается, автоматически скрываем интро
+    // Автоматическое закрытие по окончанию видео
     introVideo.addEventListener('ended', closeIntro);
 
     // Кнопка пропуска
