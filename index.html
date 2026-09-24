@@ -12,7 +12,7 @@
     *{box-sizing:border-box} html{scroll-behavior:smooth}
     body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--text);background:linear-gradient(rgba(0,0,0,.028) 1px, transparent 1px),linear-gradient(90deg, rgba(0,0,0,.028) 1px, transparent 1px),var(--bg);background-size:32px 32px;overflow-x:hidden;}
     
-    /* === ИНТРО С ИДЕАЛЬНЫМ ПОМЕЩЕНИЕМ В ЭКРАН === */
+    /* === ИНТРО === */
     #introScreen {
       position: fixed;
       inset: 0;
@@ -42,11 +42,10 @@
     .intro-content video {
       width: 100%;
       height: 100%;
-      object-fit: contain; /* Видео целиком вмещается в экран без обрезания по бокам или сверху */
+      object-fit: contain;
       background: #f1f1f1;
       outline: none;
     }
-    /* Аккуратная кнопка пропуска */
     .skip-intro {
       position: absolute;
       bottom: 30px;
@@ -67,7 +66,7 @@
       color: rgba(0, 0, 0, 0.9);
     }
 
-    /* Плавное появление сайта */
+    /* Сайт */
     #mainWebsite {
       opacity: 0;
       transform: translateY(15px);
@@ -193,7 +192,7 @@
 </head>
 <body>
 
-  <!-- ИНТРО (ПОЛНОСТЬЮ ВМЕЩАЕТСЯ В ЭКРАН) -->
+  <!-- ИНТРО (ПОКАЗЫВАЕТСЯ 1 РАЗ ЗА СЕССИЮ) -->
   <div id="introScreen">
     <div class="intro-content">
       <video id="introVideo" src="intro.mp4" autoplay muted playsinline></video>
@@ -373,7 +372,7 @@
   </div>
 
   <script>
-    /* Плавное интро */
+    /* Логика интро с проверкой через sessionStorage (показывается 1 раз за сессию) */
     const introScreen = document.getElementById('introScreen');
     const mainWebsite = document.getElementById('mainWebsite');
     const skipIntroBtn = document.getElementById('skipIntroBtn');
@@ -383,20 +382,30 @@
       if (introScreen.classList.contains('fade-out')) return;
       introScreen.classList.add('fade-out');
       mainWebsite.classList.add('visible');
+      sessionStorage.setItem('ri_intro_shown', 'true'); // Сохраняем флаг, что интро уже было показано
     }
 
-    introVideo.play().catch(() => {
-      closeIntro();
-    });
-
-    introVideo.addEventListener('timeupdate', () => {
-      if (introVideo.duration && (introVideo.duration - introVideo.currentTime <= 1.0)) {
+    // Проверяем, показывалось ли интро в этой сессии
+    if (sessionStorage.getItem('ri_intro_shown') === 'true') {
+      // Если уже показывалось — сразу скрываем интро и показываем сайт без анимации
+      introScreen.style.display = 'none';
+      mainWebsite.classList.add('visible');
+    } else {
+      // Если первый заход в сессии — запускаем видео
+      introVideo.play().catch(() => {
         closeIntro();
-      }
-    });
+      });
 
-    introVideo.addEventListener('ended', closeIntro);
-    skipIntroBtn.addEventListener('click', closeIntro);
+      // За 1 секунду до конца видео плавно скрываем интро
+      introVideo.addEventListener('timeupdate', () => {
+        if (introVideo.duration && (introVideo.duration - introVideo.currentTime <= 1.0)) {
+          closeIntro();
+        }
+      });
+
+      introVideo.addEventListener('ended', closeIntro);
+      skipIntroBtn.addEventListener('click', closeIntro);
+    }
 
     /* Поиск по проектам */
     const input = document.getElementById('search');
