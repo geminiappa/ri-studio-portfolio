@@ -12,7 +12,7 @@
     body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--text);background:linear-gradient(rgba(0,0,0,.028) 1px, transparent 1px),linear-gradient(90deg, rgba(0,0,0,.028) 1px, transparent 1px),var(--bg);background-size:32px 32px;overflow-x:hidden;}
     a{text-decoration:none;color:inherit} button,input{font:inherit}
     .wrap{width:min(1180px,calc(100% - 32px));margin:0 auto}
-    header{position:sticky;top:0;z-index:10;backdrop-filter:blur(16px);background:rgba(241,241,241,.87);border-bottom:1px solid rgba(0,0,0,.07);}
+    header{position:sticky;top:0;z-index:10;backdrop-filter:blur(16px);background:rgba(241,241,241,.87);border-bottom:1px solid rgba(0,0,0,.07); transition: transform 0.3s ease;}
     .nav{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px;}
     .menu-btn{background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.02em;font-size:16px;color:var(--text);transition:opacity 0.2s;}
     .menu-btn:hover{opacity:0.8;}
@@ -20,56 +20,80 @@
     .menu-arrow{color:var(--muted);font-size:10px;margin-left:4px;transition:transform 0.2s ease;}
     .menu-btn:hover .menu-arrow{transform:translateY(2px);}
     
-    .sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);z-index:99;opacity:0;pointer-events:none;transition:opacity 0.3s ease;}
+    .sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);z-index:99;opacity:0;pointer-events:none;transition:opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);}
     .sidebar-overlay.open{opacity:1;pointer-events:auto;}
-    .sidebar{position:fixed;top:0;left:-100%;width:min(300px, 85vw);height:100vh;background:var(--surface);box-shadow:var(--shadow);z-index:100;transition:left 0.3s ease;padding:30px 24px;display:flex;flex-direction:column;gap:30px;border-right:1px solid var(--line);}
+    .sidebar{position:fixed;top:0;left:-100%;width:min(300px, 85vw);height:100vh;background:var(--surface);box-shadow:var(--shadow);z-index:100;transition:left 0.4s cubic-bezier(0.4, 0, 0.2, 1);padding:30px 24px;display:flex;flex-direction:column;gap:30px;border-right:1px solid var(--line);}
     .sidebar.open{left:0;}
     
     .sidebar-header{display:flex;justify-content:space-between;align-items:center;}
-    .sidebar-close{background:var(--surface-2);border:1px solid var(--line);width:36px;height:36px;border-radius:50%;font-size:16px;cursor:pointer;display:grid;place-items:center;transition:background 0.2s;}
-    .sidebar-close:hover{background:#e2e2e2;}
+    .sidebar-close{background:var(--surface-2);border:1px solid var(--line);width:36px;height:36px;border-radius:50%;font-size:16px;cursor:pointer;display:grid;place-items:center;transition:all 0.2s ease;}
+    .sidebar-close:hover{background:#e2e2e2; transform: rotate(90deg);}
     .sidebar-nav{display:flex;flex-direction:column;gap:16px;font-size:18px;font-weight:600;}
-    .sidebar-nav a{padding:10px 14px;border-radius:12px;transition:background 0.2s;}
-    .sidebar-nav a:hover, .sidebar-nav a.active{background:var(--surface-2);}
+    .sidebar-nav a{padding:10px 14px;border-radius:12px;transition:all 0.2s ease;}
+    .sidebar-nav a:hover, .sidebar-nav a.active{background:var(--surface-2); transform: translateX(5px);}
     .nav-right{display:flex;align-items:center;gap:10px}
-    .pill{border:1px solid var(--line);background:var(--surface);padding:9px 13px;border-radius:999px;color:#555;font-size:13px;font-weight:650;}
+    .pill{border:1px solid var(--line);background:var(--surface);padding:9px 13px;border-radius:999px;color:#555;font-size:13px;font-weight:650;transition:all 0.3s ease;}
+    .pill:hover{box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-1px); color: var(--text);}
     
     .hero{padding:70px 0 36px}
     .eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:8px 12px;background:rgba(255,255,255,.7);font-size:12px;font-weight:750;text-transform:uppercase;letter-spacing:.08em;}
-    .eyebrow span{width:7px;height:7px;border-radius:50%;background:#4f4f4f;display:inline-block}
+    .eyebrow span{width:7px;height:7px;border-radius:50%;background:#4f4f4f;display:inline-block; transition: transform 0.3s ease;}
+    .eyebrow:hover span{transform: scale(1.5);}
     h1{font-size:clamp(38px,7vw,80px);line-height:.95;letter-spacing:-.055em;margin:18px 0 16px;max-width:900px;}
     .lead{font-size:18px;line-height:1.6;color:var(--muted);max-width:720px;margin:0}
     
-    .team-grid { display: flex; flex-direction: column; gap: 20px; max-width: 650px; margin-bottom: 70px; }
-    .member-card { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 24px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 16px; transition: transform 0.2s, box-shadow 0.2s; }
-    .member-card:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(0,0,0,.08); }
-    .member-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-    .member-name { font-size: 22px; font-weight: 800; margin: 0; letter-spacing: -0.02em; }
-    .member-role { font-size: 13px; font-weight: 700; color: #555; background: var(--surface-2); border: 1px solid var(--line); padding: 6px 14px; border-radius: 999px; }
+    /* === СТИЛЬ КАРТОЧЕК КОМАНДЫ === */
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; margin-bottom: 70px; }
     
-    .member-socials { display: flex; gap: 12px; align-items: center; }
-    .social-btn { display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; color: var(--text); transition: background 0.2s, transform 0.2s; }
-    .social-btn:hover { background: #e6e6e6; transform: translateY(-2px); }
-    .social-btn svg { width: 22px; height: 22px; fill: currentColor; }
-    .social-soon { font-size: 14px; color: var(--muted); font-weight: 600; font-style: italic; background: rgba(0,0,0,0.03); padding: 8px 16px; border-radius: 10px; text-align: center;}
+    .member-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); position: relative; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease; display: flex; flex-direction: column;}
+    .member-card:hover { transform: translateY(-8px); box-shadow: 0 22px 44px rgba(0,0,0,.12); }
+    
+    /* Видео-шапка профиля */
+    .member-cover { position: relative; height: 140px; background: #e0e0e0; overflow: hidden; }
+    .member-cover video { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1; filter: brightness(0.8); transition: filter 0.4s ease;}
+    .member-card:hover .member-cover video { filter: brightness(1); }
+    /* Плавный градиент для перехода от видео к фону карточки */
+    .member-cover::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(to top, var(--surface), transparent); z-index: 2; }
+
+    /* Тело карточки (информация) */
+    .member-info { padding: 0 24px 24px; position: relative; z-index: 3; display: flex; flex-direction: column; flex: 1; }
+    
+    /* Аватарка (круг над видео) */
+    .member-avatar { width: 80px; height: 80px; border-radius: 50%; background: var(--surface-2); border: 4px solid var(--surface); margin-top: -40px; margin-bottom: 12px; position: relative; z-index: 4; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .member-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .member-name { font-size: 24px; font-weight: 800; margin: 0 0 4px; letter-spacing: -0.02em; color: var(--text); }
+    .member-role { font-size: 13px; font-weight: 700; color: #fff; background: var(--text); display: inline-block; padding: 4px 10px; border-radius: 6px; margin-bottom: 20px; align-self: flex-start; text-transform: uppercase; letter-spacing: 0.05em;}
+    
+    .member-socials { display: flex; gap: 10px; align-items: center; margin-top: auto; }
+    .social-btn { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; color: var(--text); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .social-btn:hover { background: var(--text); color: var(--surface); border-color: var(--text); transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,.15); }
+    .social-btn svg { width: 20px; height: 20px; fill: currentColor; }
+    
+    .social-soon { font-size: 13px; color: var(--muted); font-weight: 600; font-style: italic; background: rgba(0,0,0,0.03); padding: 10px 16px; border-radius: 12px; text-align: center; width: 100%; display: flex; justify-content: center; align-items: center; height: 44px; border: 1px dashed var(--line);}
 
     footer{border-top:1px solid var(--line);padding:32px 0 44px;color:var(--muted);font-size:13px}
     .foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
-    .social-links{display:flex;gap:16px;align-items:center;}
-    .social-link{color:var(--muted);transition:color 0.2s ease, transform 0.2s ease;display:flex;}
-    .social-link:hover{color:var(--text);transform:translateY(-2px);}
-    .social-link svg{width:22px;height:22px;fill:currentColor;}
+    .social-links-footer{display:flex;gap:16px;align-items:center;}
+    .social-link-footer{color:var(--muted);transition:all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);display:flex;}
+    .social-link-footer:hover{color:var(--text);transform:translateY(-4px) scale(1.1);}
+    .social-link-footer svg{width:22px;height:22px;fill:currentColor;}
     
+    /* СИСТЕМА АНИМАЦИЙ (ПОЯВЛЕНИЕ ЭЛЕМЕНТОВ) */
+    .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: opacity, transform; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+
     /* АДАПТИВНОСТЬ */
     @media (max-width:600px){
       .wrap { width: calc(100% - 24px); }
       .nav { min-height: 64px; }
       .pill { display: none; }
       .hero { padding: 40px 0 20px; }
-      .member-card { padding: 20px 16px; }
-      .member-header { flex-direction: column; align-items: flex-start; gap: 10px; }
-      .member-socials { flex-wrap: wrap; }
-      .social-soon { width: 100%; }
+      .team-grid { grid-template-columns: 1fr; }
+      .member-info { padding: 0 20px 20px; }
       .foot { flex-direction: column-reverse; justify-content: center; text-align: center; gap: 16px; }
     }
   </style>
@@ -89,7 +113,7 @@
     </nav>
   </aside>
 
-  <header>
+  <header id="mainHeader">
     <div class="wrap nav">
       <button class="menu-btn" id="menuBtn" aria-label="Открыть меню">
         <img src="Gemini_Generated_Image_hmvg8ohmvg8ohmvg.jpeg" alt="Аватарка RI Studio" class="brand-avatar">
@@ -104,50 +128,73 @@
 
   <main class="wrap">
     <section class="hero">
-      <span class="eyebrow"><span></span> Будем на связи</span>
-      <h1>Команда и контакты.</h1>
-      <p class="lead">Мы всегда открыты к общению, фидбеку по играм и новым идеям. Напишите нам в удобной для вас социальной сети.</p>
+      <span class="eyebrow fade-up delay-1"><span></span> Будем на связи</span>
+      <h1 class="fade-up delay-2">Команда и контакты.</h1>
+      <p class="lead fade-up delay-3">Мы всегда открыты к общению, фидбеку по играм и новым идеям. Напишите нам в удобной для вас социальной сети.</p>
     </section>
 
     <section class="team-grid">
+      
       <!-- Карточка: Иван Русецкий -->
-      <div class="member-card">
-        <div class="member-header">
-          <h3 class="member-name">Русецкий Иван</h3>
+      <div class="member-card fade-up">
+        <div class="member-cover">
+          <video src="gameleader.mp4" autoplay loop muted playsinline></video>
+        </div>
+        <div class="member-info">
+          <!-- Аватарка Ивана -->
+          <div class="member-avatar">
+            <img src="Gemini_Generated_Image_o5sclpo5sclpo5sc.jpeg" alt="Иван Русецкий">
+          </div>
+          <h3 class="member-name">Иван Русецкий</h3>
           <span class="member-role">Code, releases</span>
-        </div>
-        <div class="member-socials">
-          <a href="https://t.me/RIStudiosait" class="social-btn" aria-label="Telegram" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-          </a>
-          <a href="https://youtu.be/dQw4w9WgXcQ?si=vLt5eNECbfqbARRZ" class="social-btn" aria-label="YouTube" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-          </a>
-          <a href="https://tiktok.com" class="social-btn" aria-label="TikTok" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- Карточка: Юрчик Никита -->
-      <div class="member-card">
-        <div class="member-header">
-          <h3 class="member-name">Юрчик Никита</h3>
-          <span class="member-role">Designer, Idea</span>
-        </div>
-        <div class="member-socials">
-          <span class="social-soon">Social links: soon</span>
+          
+          <div class="member-socials">
+            <a href="https://t.me/RIStudiosait" class="social-btn" aria-label="Telegram" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            </a>
+            <a href="https://youtu.be/dQw4w9WgXcQ?si=vLt5eNECbfqbARRZ" class="social-btn" aria-label="YouTube" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+            <a href="https://tiktok.com" class="social-btn" aria-label="TikTok" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+            </a>
+          </div>
         </div>
       </div>
 
-      <!-- Карточка: Тумилович Никита -->
-      <div class="member-card">
-        <div class="member-header">
-          <h3 class="member-name">Тумилович Никита</h3>
-          <span class="member-role">Designer, Idea</span>
+      <!-- Карточка: Никита Юрчик -->
+      <div class="member-card fade-up">
+        <div class="member-cover">
+          <video src="desing.mp4" autoplay loop muted playsinline></video>
         </div>
-        <div class="member-socials">
-          <span class="social-soon">Social links: soon</span>
+        <div class="member-info">
+          <!-- Аватарка Никиты 1 -->
+          <div class="member-avatar">
+            <img src="Gemini_Generated_Image_h28leh28leh28leh.jpeg" alt="Никита Юрчик">
+          </div>
+          <h3 class="member-name">Никита Юрчик</h3>
+          <span class="member-role">Designer, Idea</span>
+          <div class="member-socials">
+            <span class="social-soon">Ссылки скоро появятся</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Карточка: Никита Тумилович -->
+      <div class="member-card fade-up">
+        <div class="member-cover">
+          <video src="desing.mp4" autoplay loop muted playsinline></video>
+        </div>
+        <div class="member-info">
+          <!-- Аватарка Никиты 2 -->
+          <div class="member-avatar">
+            <img src="Gemini_Generated_Image_h28leh28leh28leh.jpeg" alt="Никита Тумилович">
+          </div>
+          <h3 class="member-name">Никита Тумилович</h3>
+          <span class="member-role">Designer, Idea</span>
+          <div class="member-socials">
+            <span class="social-soon">Ссылки скоро появятся</span>
+          </div>
         </div>
       </div>
 
@@ -157,15 +204,16 @@
   <footer>
     <div class="wrap foot">
       <span>RI Studio Все права Защищены © 2026</span>
-      <div class="social-links">
-        <a href="https://youtu.be/dQw4w9WgXcQ?si=vLt5eNECbfqbARRZ" class="social-link" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
-        <a href="https://tiktok.com" class="social-link" aria-label="TikTok" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></a>
-        <a href="https://t.me/RIStudiosait" class="social-link" aria-label="Telegram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
+      <div class="social-links-footer">
+        <a href="https://youtu.be/dQw4w9WgXcQ?si=vLt5eNECbfqbARRZ" class="social-link-footer" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <a href="https://tiktok.com" class="social-link-footer" aria-label="TikTok" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></a>
+        <a href="https://t.me/RIStudiosait" class="social-link-footer" aria-label="Telegram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></a>
       </div>
     </div>
   </footer>
 
   <script>
+    /* Логика меню */
     const menuBtn = document.getElementById('menuBtn');
     const sidebar = document.getElementById('sidebar');
     const sidebarClose = document.getElementById('sidebarClose');
@@ -177,6 +225,34 @@
     menuBtn.addEventListener('click', openMenu);
     sidebarClose.addEventListener('click', closeMenu);
     sidebarOverlay.addEventListener('click', closeMenu);
+
+    /* Анимации при скролле */
+    document.addEventListener("DOMContentLoaded", () => {
+      const fadeElements = document.querySelectorAll('.fade-up');
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { root: null, rootMargin: '0px 0px -50px 0px', threshold: 0.1 });
+
+      fadeElements.forEach(el => observer.observe(el));
+    });
+
+    /* Скрытие хедера при скролле вниз */
+    let lastScroll = 0;
+    const header = document.getElementById('mainHeader');
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      if (currentScroll > 100 && currentScroll > lastScroll) {
+        header.style.transform = 'translateY(-100%)';
+      } else {
+        header.style.transform = 'translateY(0)';
+      }
+      lastScroll = currentScroll;
+    });
   </script>
 </body>
 </html>
