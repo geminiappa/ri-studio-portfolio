@@ -44,8 +44,7 @@
     .support-card h2 { font-size: 26px; margin: 0; letter-spacing: -0.02em; }
     .support-card p { color: var(--muted); line-height: 1.6; font-size: 15px; margin: 0; }
     
-    /* Кнопка с точно такой же анимацией стрелки, как на главной */
-    .launch { background: var(--surface); color: var(--text); border: 1px solid var(--line); border-radius: 12px; padding: 12px 20px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; transition: all .3s cubic-bezier(0.25, 0.8, 0.25, 1); box-shadow: 0 2px 8px rgba(0,0,0,.02); font-size: 15px; width: fit-content; }
+    .launch { background: var(--surface); color: var(--text); border: 1px solid var(--line); border-radius: 12px; padding: 12px 20px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all .3s cubic-bezier(0.25, 0.8, 0.25, 1); box-shadow: 0 2px 8px rgba(0,0,0,.02); font-size: 15px; width: fit-content; }
     .launch:hover { background: var(--text); color: var(--surface); transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0,0,0,.15); border-color: var(--text); }
     .launch-arrow { color: inherit; font-weight: normal; transition: transform 0.3s ease; display: inline-block; }
     .launch:hover .launch-arrow { transform: translate(2px, -2px); }
@@ -63,12 +62,15 @@
     .delay-2 { transition-delay: 0.2s; }
     .delay-3 { transition-delay: 0.3s; }
 
+    /* МОБИЛЬНАЯ АДАПТАЦИЯ */
     @media (max-width:600px){
       .wrap { width: calc(100% - 20px); }
       .nav { min-height: 60px; }
       .pill { display: none; }
       .hero { padding: 32px 0 20px; }
       .support-card { padding: 24px 20px; }
+      .support-card h2 { font-size: 22px; }
+      .support-card p { font-size: 14px; }
       .launch { width: 100%; justify-content: center; }
       .foot { flex-direction: column-reverse; justify-content: center; text-align: center; gap: 12px; }
     }
