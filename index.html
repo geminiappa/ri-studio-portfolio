@@ -97,8 +97,6 @@
     .sidebar-nav{display:flex;flex-direction:column;gap:12px;font-size:17px;font-weight:600;}
     .sidebar-nav a{padding:10px 12px;border-radius:10px;transition:all 0.2s ease;}
     .sidebar-nav a:hover, .sidebar-nav a.active{background:var(--surface-2); transform: translateX(4px);}
-    .nav-right{display:flex;align-items:center;gap:8px}
-    .pill{border:1px solid var(--line);background:var(--surface);padding:7px 11px;border-radius:999px;color:#555;font-size:12px;font-weight:650;}
     
     .hero{padding:50px 0 28px}
     .eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:rgba(255,255,255,.7);font-size:11px;font-weight:750;text-transform:uppercase;letter-spacing:.08em;}
@@ -176,7 +174,6 @@
     @media (max-width:600px){
       .wrap { width: calc(100% - 20px); }
       .nav { min-height: 60px; }
-      .pill { display: none; }
       .hero { padding: 32px 0 20px; }
       .toolbar { flex-direction: column; align-items: stretch; gap: 12px; }
       .search { width: 100%; }
@@ -192,7 +189,7 @@
 </head>
 <body>
 
-  <!-- ИНТРО (ПОКАЗЫВАЕТСЯ 1 РАЗ ЗА СЕССИЮ) -->
+  <!-- ИНТРО -->
   <div id="introScreen">
     <div class="intro-content">
       <video id="introVideo" src="intro.mp4" autoplay muted playsinline></video>
@@ -223,10 +220,6 @@
           <img src="Gemini_Generated_Image_hmvg8ohmvg8ohmvg.jpeg" alt="Аватарка RI Studio" class="brand-avatar">
           <span>RI Studio <span class="menu-arrow">▼</span></span>
         </button>
-        <div class="nav-right">
-          <span class="pill">Портфолио</span>
-          <span class="pill">Инди-студия</span>
-        </div>
       </div>
     </header>
 
@@ -372,7 +365,7 @@
   </div>
 
   <script>
-    /* Логика интро с проверкой через sessionStorage (показывается 1 раз за сессию) */
+    /* Логика интро с sessionStorage (показывается ровно 1 раз за сессию) */
     const introScreen = document.getElementById('introScreen');
     const mainWebsite = document.getElementById('mainWebsite');
     const skipIntroBtn = document.getElementById('skipIntroBtn');
@@ -382,21 +375,17 @@
       if (introScreen.classList.contains('fade-out')) return;
       introScreen.classList.add('fade-out');
       mainWebsite.classList.add('visible');
-      sessionStorage.setItem('ri_intro_shown', 'true'); // Сохраняем флаг, что интро уже было показано
+      sessionStorage.setItem('ri_intro_shown', 'true');
     }
 
-    // Проверяем, показывалось ли интро в этой сессии
     if (sessionStorage.getItem('ri_intro_shown') === 'true') {
-      // Если уже показывалось — сразу скрываем интро и показываем сайт без анимации
       introScreen.style.display = 'none';
       mainWebsite.classList.add('visible');
     } else {
-      // Если первый заход в сессии — запускаем видео
       introVideo.play().catch(() => {
         closeIntro();
       });
 
-      // За 1 секунду до конца видео плавно скрываем интро
       introVideo.addEventListener('timeupdate', () => {
         if (introVideo.duration && (introVideo.duration - introVideo.currentTime <= 1.0)) {
           closeIntro();
